@@ -2,7 +2,7 @@
  *  Compilation:  javac Point.java
  *  Execution:    java Point
  *  Dependencies: none
- *
+ *  
  *  An immutable data type for points in the plane.
  *  For use on Coursera, Algorithms Part I programming assignment.
  *
@@ -60,6 +60,7 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         /* YOUR CODE HERE */
+        
     }
 
     /**
@@ -74,8 +75,15 @@ public class Point implements Comparable<Point> {
      *         point; and a positive integer if this point is greater than the
      *         argument point
      */
-    public int compareTo(Point that) {
+    public int compareTo(Point that)
+    {
         /* YOUR CODE HERE */
+        if (this.y<that.y || (this.y==that.y && this.x<that.x))
+            return -1;
+        else if (this.y==that.y && this.x== that.x)
+            return 0;
+        else
+            return 1;
     }
 
     /**
