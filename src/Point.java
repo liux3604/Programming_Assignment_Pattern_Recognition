@@ -11,7 +11,7 @@
 import java.util.Comparator;
 import edu.princeton.cs.algs4.StdDraw;
 
-public class Point implements Comparable<Point> {
+public class Point implements Comparable<Point>, Comparator<Point> {
 
     private final int x;     // x-coordinate of this point
     private final int y;     // y-coordinate of this point
@@ -60,6 +60,14 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         /* YOUR CODE HERE */
+        if (this.x==that.x && this.y==that.y)
+            return Double.NEGATIVE_INFINITY;
+        else if (this.x== that.x)
+            return Double.POSITIVE_INFINITY;
+        else if (this.y == that.y)
+            return +0.0;
+        else
+            return ((double)(this.y-that.y))/(this.x-that.x);
 
     }
 
@@ -92,10 +100,26 @@ public class Point implements Comparable<Point> {
      *
      * @return the Comparator that defines this ordering on points
      */
+
+
     public Comparator<Point> slopeOrder() {
         /* YOUR CODE HERE */
+        return this;
+
     }
 
+    @Override
+    public int compare(Point p1, Point p2)
+    {
+        double slope1 = this.slopeTo(p1);
+        double slope2 = this.slopeTo(p2);
+        if (slope1 == slope2)
+            return 0;
+        else if (slope1>slope2)
+            return 1;
+        else
+            return -1;
+    }
 
     /**
      * Returns a string representation of this point.
@@ -114,5 +138,14 @@ public class Point implements Comparable<Point> {
      */
     public static void main(String[] args) {
         /* YOUR CODE HERE */
+
+        Point p1 = new Point(1234,5678);
+        Point p2 = new Point(19000,10000);
+        double slope = p1.slopeTo(p2);
+
+        return;
+
+
     }
+
 }
