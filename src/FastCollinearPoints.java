@@ -24,9 +24,11 @@ public class FastCollinearPoints {
     public LineSegment[] segments()
     {   // the line segments
         LineSegment[] results= new LineSegment[10];
+        int num_segments=0;
         double[] slopes;
         Point[] tempPointsArray;
         int pointer;
+        int pointer2;
         int counter;
         double slopeValue;
         for (int i = 0; i < points.length - 1; i++)
@@ -43,27 +45,59 @@ public class FastCollinearPoints {
             }
             //Sort the slopes array and its corresponding Points array non-destructively
             // Merge-sort is a good choice because it is non-destructive and fast. How about its space usage?
-            for (int k=0; k<points.length;k++) // copy the points array
             mergeSort(slopes, tempPointsArray, 0, points.length-i-2);
+
+            //Now find out all collinear segments starting with the point[i]
             counter=0;
-            for (pointer=0;pointer<slopes.length;pointer++)
+            for (pointer=0;pointer<slopes.length-1;pointer++)
             {
                 slopeValue=slopes[pointer];
+                for (pointer2=pointer+1; pointer2<slopes.length; pointer2++)
+                {
+                    if (slopes[pointer2]!=slopeValue)
+                    {
+                        pointer = pointer2 - 1;
+                        counter=0;
+                        break;
+                    }
+                    else
+                    {
+                        counter++;
+                        if (counter>=3)
+                        {
+                            if (num_segments == results.length)
+                                results = resize(results, 2*results.length);
+                            results[num_segments]= new LineSegment(tempPointsArray[pointer],tempPointsArray[pointer2]);
+                            num_segments++;
 
-                for ()
-
-
+                            // this is where i left off, most likely i see bugs around here;
+                        }
+                    }
+                }
             }
-
-
-
-
         }
 
-        ///the following line is invalid
+        results = resize(results,num_segments);
         return results;
-
     }
+
+    /**
+     * Private helper function, resize the array.
+     *
+     * */
+
+     private LineSegment[] resize(LineSegment[] segments, int n)
+     {
+        LineSegment[] tempSegment = new LineSegment[n];
+        for (int i = 0; i<Math.min(n, segments.length); i++)
+        {
+            tempSegment[i] = segments[i];
+        }
+        return tempSegment;
+     }
+
+
+
 
     /**
      * mergeSort is a private helper function that
