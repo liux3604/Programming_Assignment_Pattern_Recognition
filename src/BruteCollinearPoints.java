@@ -51,8 +51,6 @@ public class BruteCollinearPoints {
                             }
 
                             finalSegmentArray[NumberOfSegments] = tempSegment;
-                            LineSegment tempSegment2 = colinearHelper(fourPoints);
-
                             NumberOfSegments++;
                         }
                     }
