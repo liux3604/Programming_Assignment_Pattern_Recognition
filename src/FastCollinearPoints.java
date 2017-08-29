@@ -3,18 +3,19 @@ import java.util.Arrays;
 public class FastCollinearPoints {
     Point[] points;
     public FastCollinearPoints(Point[] points)
-    {   // finds all line segments containing 4 or more points
+    {   // Constructor that prescreens the points input array
         for (int i=0; i<points.length-1; i++)
             for (int j=i+1; j<points.length;j++)
                 if (points[i].compareTo(points[j])==0)
-                    throw new java.lang.IllegalArgumentException("");
+                    throw new java.lang.IllegalArgumentException("The input points should all be unique.");
         for (int i=0; i<points.length; i++)
             if (points[i]==null)
-                throw new java.lang.IllegalArgumentException("");
+                throw new java.lang.IllegalArgumentException("the input points should not be null.");
         // Sort the points according to the order defined in Point.java
         Arrays.sort(points); //Takes O(nlogn) time
         this.points = points;
     }
+
     public  int numberOfSegments()
     {   // the number of line segments
         LineSegment[] results = segments();
@@ -22,7 +23,7 @@ public class FastCollinearPoints {
     }
 
     public LineSegment[] segments()
-    {   // the line segments
+    {   // return all the qualifying the line segments
         LineSegment[] results= new LineSegment[10];
         int num_segments=0;
         double[] slopes;
@@ -49,14 +50,15 @@ public class FastCollinearPoints {
 
             //Now find out all collinear segments starting with the point[i]
             counter=0;
-            for (pointer=0;pointer<slopes.length-1;pointer++)
+            pointer=0;
+            while (pointer<slopes.length-1)
             {
                 slopeValue=slopes[pointer];
                 for (pointer2=pointer+1; pointer2<slopes.length; pointer2++)
                 {
                     if (slopes[pointer2]!=slopeValue)
                     {
-                        pointer = pointer2 - 1;
+                        pointer = pointer2;
                         counter=0;
                         break;
                     }
