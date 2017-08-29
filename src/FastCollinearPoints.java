@@ -120,6 +120,8 @@ public class FastCollinearPoints {
         if (j<=i) return; // this line is redundant, but i still kept it here for safety.
         Point[] pointsCopy = new Point[j-i+1];
         double[] slopesCopy = new double[j-i+1];
+        // question: should I create a static variable pointsCopy and slopesCopy in the FastCollinearPoints class
+        // instead of as a local variable? This could save the time spend on recreating the variable in the recursive process
 
         for (int g=0;g<j-i+1;g++)
         {
@@ -127,7 +129,7 @@ public class FastCollinearPoints {
             slopesCopy[g]= slopes[i+g];
         }
 
-        int mid = (j-i+1)/2;
+        int mid = (0+ j-i+1-1)/2;
         int first_ref =0;
         int second_ref=mid+1;
 
