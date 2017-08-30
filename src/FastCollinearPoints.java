@@ -45,6 +45,7 @@ public class FastCollinearPoints
                 slopes[j - (i + 1)] = points[i].slopeTo(points[j]);
                 tempPointsArray[j - (i + 1)] = points[j];
             }
+
             //Sort the slopes array and its corresponding Points array non-destructively
             // Merge-sort is a good choice because it is non-destructive and fast. How about its space usage?
             mergeSort(slopes, tempPointsArray, 0, points.length-i-2);
@@ -70,7 +71,7 @@ public class FastCollinearPoints
                         {
                             if (num_segments == results.length)
                                 results = resize(results, 2*results.length);
-                            results[num_segments]= new LineSegment(tempPointsArray[pointer],tempPointsArray[pointer2]);
+                            results[num_segments]= new LineSegment(points[i],tempPointsArray[pointer2]);
                             num_segments++;
 
                             // this is where i left off, most likely i see bugs around here;
