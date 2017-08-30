@@ -58,25 +58,35 @@ public class FastCollinearPoints
                 slopeValue=slopes[pointer];
                 for (pointer2=pointer+1; pointer2<slopes.length; pointer2++)
                 {
-                    if (slopes[pointer2]!=slopeValue)
+                    if (slopes[pointer2]==slopeValue)
                     {
-                        pointer = pointer2;
-                        counter=1;
-                        break;
-                        // bug here.
+                        counter++;
+                        if (pointer2 == slopes.length-1)
+                        {
+                            if (counter>=3)
+                            {
+                                if (num_segments == results.length)
+                                    results = resize(results, 2*results.length);
+                                results[num_segments]= new LineSegment(points[i],tempPointsArray[pointer2]);
+                                num_segments++;
+                            }
+                            pointer = pointer2+1;
+                            counter=1;
+                            break;
+                        }
                     }
                     else
                     {
-                        counter++;
                         if (counter>=3)
                         {
                             if (num_segments == results.length)
                                 results = resize(results, 2*results.length);
-                            results[num_segments]= new LineSegment(points[i],tempPointsArray[pointer2]);
+                            results[num_segments]= new LineSegment(points[i],tempPointsArray[pointer2-1]);
                             num_segments++;
-
-                            // this is where i left off, most likely i see bugs around here;
                         }
+                        pointer = pointer2;
+                        counter=1;
+                        break;
                     }
                 }
             }
