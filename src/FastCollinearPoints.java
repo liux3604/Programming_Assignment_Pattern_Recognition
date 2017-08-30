@@ -63,6 +63,7 @@ public class FastCollinearPoints
                         pointer = pointer2;
                         counter=1;
                         break;
+                        // bug here.
                     }
                     else
                     {
