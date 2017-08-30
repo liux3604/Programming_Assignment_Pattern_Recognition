@@ -51,7 +51,7 @@ public class FastCollinearPoints
             mergeSort(slopes, tempPointsArray, 0, points.length-i-2);
 
             //Now find out all collinear segments starting with the point[i]
-            counter=0;
+            counter=1;
             pointer=0;
             while (pointer<slopes.length-1)
             {
@@ -61,7 +61,7 @@ public class FastCollinearPoints
                     if (slopes[pointer2]!=slopeValue)
                     {
                         pointer = pointer2;
-                        counter=0;
+                        counter=1;
                         break;
                     }
                     else
