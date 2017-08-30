@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
-public class FastCollinearPoints {
+public class FastCollinearPoints
+{
     Point[] points;
     public FastCollinearPoints(Point[] points)
     {   // Constructor that prescreens the points input array
@@ -106,16 +107,16 @@ public class FastCollinearPoints {
      * sorts the slopes array as well as its corresponding points array
      *
      * */
-    private void mergeSort(double[] slopes, Point[] points, int i, int j)
+    private void mergeSort(double[] slopes, Point[] tempPointsArray, int i, int j)
     {   //When first called, i =0, j=N-1
         if (i==j)   return; //base case of recursive function;
         int mid = (i+j)/2;
-        mergeSort(slopes, points, i, mid);
-        mergeSort(slopes,points,mid+1,j);
-        merge(slopes,points,i,j);
+        mergeSort(slopes, tempPointsArray, i, mid);
+        mergeSort(slopes,tempPointsArray,mid+1,j);
+        merge(slopes,tempPointsArray,i,j);
     }
 
-    private void merge (double[] slopes, Point[] points, int i, int j)
+    private void merge (double[] slopes, Point[] tempPointsArray, int i, int j)
     {
         if (j<=i) return; // this line is redundant, but i still kept it here for safety.
         Point[] pointsCopy = new Point[j-i+1];
@@ -125,7 +126,7 @@ public class FastCollinearPoints {
 
         for (int g=0;g<j-i+1;g++)
         {
-            pointsCopy[g]= points[i+g];
+            pointsCopy[g]= tempPointsArray[i+g];
             slopesCopy[g]= slopes[i+g];
         }
 
@@ -137,27 +138,27 @@ public class FastCollinearPoints {
         {
             if (first_ref>mid)
             {
-                points[i + n] = pointsCopy[second_ref];
+                tempPointsArray[i + n] = pointsCopy[second_ref];
                 slopes[i+n] = slopesCopy[second_ref];
                 second_ref++;
             }
             else if (second_ref>j-i+1-1)
             {
-                points[i+n]= pointsCopy[first_ref];
+                tempPointsArray[i+n]= pointsCopy[first_ref];
                 slopes[i+n]= slopesCopy[first_ref];
                 first_ref++;
             }
             else
             {
-                if (slopes[first_ref]<=slopes[second_ref])
+                if (slopesCopy[first_ref]<=slopesCopy[second_ref])
                 {
-                    points[i+n]= pointsCopy[first_ref];
+                    tempPointsArray[i+n]= pointsCopy[first_ref];
                     slopes[i+n]= slopesCopy[first_ref];
                     first_ref++;
                 }
                 else
                 {
-                    points[i+n]=pointsCopy[second_ref];
+                    tempPointsArray[i+n]=pointsCopy[second_ref];
                     slopes[i+n]=slopesCopy[second_ref];
                     second_ref++;
                 }

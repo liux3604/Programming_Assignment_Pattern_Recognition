@@ -25,7 +25,8 @@ public class Main {
         }
         StdDraw.show();
 
-        /** print and draw the line segments using the bruteForce method
+        /**
+        // print and draw the line segments using the bruteForce method
         BruteCollinearPoints collinear = new BruteCollinearPoints(points);
         LineSegment[] segmentArray= collinear.segments();
         for (LineSegment segment : collinear.segments())
@@ -34,11 +35,12 @@ public class Main {
             segment.draw();
         }
         StdDraw.show();
-
         */
+
         // print and draw the line segments using the fast approach
 
         FastCollinearPoints collinear = new FastCollinearPoints(points);
+        LineSegment[] tempSegments = collinear.segments();
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();
